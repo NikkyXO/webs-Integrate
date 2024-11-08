@@ -1,9 +1,7 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
-import { join } from 'path';
-// import { AppService } from './services/app.service';
-// import { AppController } from './controllers/app.controller';
+// import { join } from 'path';
 import { User, UserSchema } from './models/user.model';
 import { CounterResolver } from './resolvers/counter.resolver';
 import { UserService } from './services/user.service';
@@ -12,6 +10,8 @@ import { CounterService } from './services/counter.service';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { configuration } from './config';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AppService } from './services/app.service';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -22,7 +22,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      // autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+      autoSchemaFile: true, // Generates schema in memory
       sortSchema: true,
     }),
 
@@ -37,7 +38,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     }),
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
   ],
-  // controllers: [AppController],
-  providers: [CounterService, CounterResolver, UserService, UserResolver],
+  controllers: [AppController],
+  providers: [
+    AppService,
+    CounterService,
+    CounterResolver,
+    UserService,
+    UserResolver,
+  ],
 })
 export class AppModule {}
