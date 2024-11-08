@@ -6,9 +6,11 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-
-  // app.useStaticAssets(join(__dirname, '..', 'public'));
-  // app.setViewEngine('html');
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,POST',
+    allowedHeaders: 'Content-Type,Authorization',
+  });
 
   await app.listen(3000);
 }
