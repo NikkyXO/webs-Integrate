@@ -27,9 +27,6 @@ import { AppController } from './app.controller';
       sortSchema: true,
       playground: process.env.NODE_ENV !== 'production',
       introspection: true,
-
-      // to fix view /graphql error
-      csrfPrevention: false,
     }),
 
     MongooseModule.forRootAsync({
