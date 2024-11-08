@@ -25,17 +25,12 @@ import { AppController } from './app.controller';
       driver: ApolloDriver,
       autoSchemaFile: true,
       sortSchema: true,
-      playground: true,
+      playground: process.env.NODE_ENV !== 'production',
+      introspection: true
     }),
 
     MongooseModule.forRootAsync({
-      imports: [
-        ConfigModule,
-        // ServeStaticModule.forRoot({
-        //   rootPath: join(__dirname, '..', 'public'),
-        //   exclude: ['/api/(.*)'],
-        // }),
-      ],
+      imports: [ConfigModule],
       useFactory: (configService: ConfigService) => {
         return {
           uri: configService.get<string>('mongoDBURI'),
