@@ -8,7 +8,7 @@ export class UserResolver {
 
   @Query(() => [User])
   async getUsers() {
-    return this.userService.getUsers();
+    return await this.userService.getUsers();
   }
 
   @Mutation(() => User)
@@ -16,6 +16,6 @@ export class UserResolver {
     @Args('name') name: string,
     @Args('age', { type: () => Int }) age: number,
   ) {
-    return this.userService.createUser(name, age);
+    return await this.userService.createUser(name, age);
   }
 }

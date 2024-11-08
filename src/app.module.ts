@@ -24,9 +24,9 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       // autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      autoSchemaFile: true, // Generates schema in memory
+      autoSchemaFile: true,
       sortSchema: true,
-      introspection: true,
+      // introspection: true,
       playground: true,
     }),
 
@@ -36,9 +36,6 @@ import { ServeStaticModule } from '@nestjs/serve-static';
         ServeStaticModule.forRoot({
           rootPath: join(__dirname, '..', 'public'),
           exclude: ['/api/(.*)'],
-          // serveStaticOptions: {
-          //   cacheControl: true,
-          // },
         }),
       ],
       useFactory: (configService: ConfigService) => {

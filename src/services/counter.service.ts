@@ -1,34 +1,32 @@
 import { Injectable } from '@nestjs/common';
 import { ethers } from 'ethers';
 import * as CounterContract from '../abis/Counter.json';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class CounterService {
-  //   private provider: ethers.providers.JsonRpcProvider;
   private provider: ethers.JsonRpcApiProvider;
   private contract: ethers.Contract;
   private signer: ethers.Wallet;
 
-  constructor() {
-    // this.provider = new ethers.InfuraProvider(
-    //   'goerli',
-    //   process.env.INFURA_PROJECT_ID,
-    // );
-    console.log(process.env.INFURA_HOLESKY);
-    this.provider = new ethers.JsonRpcProvider(process.env.INFURA_HOLESKY);
+  constructor(private configService: ConfigService) {
+    this.provider = new ethers.JsonRpcProvider(
+      this.configService.getOrThrow('infuraHolesky'),
+    );
 
-    this.signer = new ethers.Wallet(process.env.PRIVATE_KEY, this.provider);
+    this.signer = new ethers.Wallet(
+      this.configService.getOrThrow('privateKey'),
+      this.provider,
+    );
     this.contract = new ethers.Contract(
-      process.env.CONTRACT_ADDRESS,
+      this.configService.getOrThrow('contractAddress'),
       CounterContract.abi,
       this.signer,
     );
   }
 
   async getCount(): Promise<string> {
-    const count = (await this.contract.getCount()).toString();
-    console.log('count', count);
-    return count;
+    return (await this.contract.getCount()).toString();
   }
 
   async incrementCount(): Promise<void> {

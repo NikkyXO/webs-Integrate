@@ -13,12 +13,4 @@ export class BaseEntity {
   })
   @Field()
   _id: string;
-
-  @Prop({
-    required: false,
-    type: Schema.Types.Date,
-    default: null,
-  })
-  @Field()
-  deletedAt: Date;
 }
