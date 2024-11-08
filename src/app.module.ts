@@ -26,7 +26,7 @@ import { AppController } from './app.controller';
       autoSchemaFile: true,
       sortSchema: true,
       playground: process.env.NODE_ENV !== 'production',
-      introspection: true
+      introspection: true,
     }),
 
     MongooseModule.forRootAsync({
