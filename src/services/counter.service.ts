@@ -14,7 +14,8 @@ export class CounterService {
     //   'goerli',
     //   process.env.INFURA_PROJECT_ID,
     // );
-    this.provider = new ethers.JsonRpcProvider('https://rpc.sepolia.dev');
+    console.log(process.env.INFURA_HOLESKY);
+    this.provider = new ethers.JsonRpcProvider(process.env.INFURA_HOLESKY);
 
     this.signer = new ethers.Wallet(process.env.PRIVATE_KEY, this.provider);
     this.contract = new ethers.Contract(
@@ -24,8 +25,10 @@ export class CounterService {
     );
   }
 
-  async getCount(): Promise<number> {
-    return await this.contract.getCount();
+  async getCount(): Promise<string> {
+    const count = (await this.contract.getCount()).toString();
+    console.log('count', count);
+    return count;
   }
 
   async incrementCount(): Promise<void> {

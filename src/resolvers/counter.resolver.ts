@@ -1,12 +1,14 @@
-import { Resolver, Query, Mutation } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Int } from '@nestjs/graphql';
 import { CounterService } from '../services/counter.service';
 @Resolver()
 export class CounterResolver {
   constructor(private readonly counterService: CounterService) {}
 
-  @Query(() => Number)
+  @Query(() => Int)
   async getCount() {
-    return this.counterService.getCount();
+    const count = Number(await this.counterService.getCount());
+    console.log('count here', count);
+    return count;
   }
 
   @Mutation(() => Boolean)
