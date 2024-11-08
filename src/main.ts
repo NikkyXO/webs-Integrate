@@ -12,11 +12,12 @@ async function bootstrap() {
     cors<cors.CorsRequest>({
       origin: ['https://webs-integrate.vercel.app', 'http://localhost:3000'],
       methods: 'GET,POST',
-      allowedHeaders: 'Content-Type, Authorization',
+      // allowedHeaders: 'Content-Type, Authorization',
+      allowedHeaders:
+        'Content-Type,Authorization,x-apollo-operation-name,apollo-require-preflight',
     }),
   );
 
-  // Ensure CSRF protection is disabled in the GraphQL module
   app.enableCors({
     origin: ['https://webs-integrate.vercel.app', 'http://localhost:3000'],
     methods: 'GET,POST',

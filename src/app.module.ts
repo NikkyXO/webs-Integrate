@@ -12,6 +12,7 @@ import { configuration } from './config';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppService } from './services/app.service';
 import { AppController } from './app.controller';
+import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
 // import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
@@ -27,6 +28,8 @@ import { AppController } from './app.controller';
       sortSchema: true,
       playground: process.env.NODE_ENV !== 'production',
       introspection: true,
+      csrfPrevention: false,
+      plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
 
     MongooseModule.forRootAsync({
