@@ -7,11 +7,11 @@ import { User } from '../models/user.model';
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
-  async createUser(name: string, age: number): Promise<User> {
-    return new this.userModel({ name, age }).save();
+  async createUser(user: Partial<User>): Promise<User> {
+    return new this.userModel(user).save();
   }
 
-  async getUsers(): Promise<User[]> {
-    return this.userModel.find().exec();
+  async getUsers(skip: number, take: number): Promise<User[]> {
+    return this.userModel.find().skip(skip).limit(take).exec();
   }
 }

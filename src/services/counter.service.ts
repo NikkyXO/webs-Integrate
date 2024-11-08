@@ -33,4 +33,9 @@ export class CounterService {
     const tx = await this.contract.increment();
     await tx.wait();
   }
+
+  async decrementCount(): Promise<void> {
+    const tx = await this.contract.decrement();
+    await tx.wait;
+  }
 }

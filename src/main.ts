@@ -3,7 +3,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import cors from 'cors';
-// import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -12,7 +11,6 @@ async function bootstrap() {
     cors<cors.CorsRequest>({
       origin: ['https://webs-integrate.vercel.app', 'http://localhost:3000'],
       methods: 'GET,POST',
-      // allowedHeaders: 'Content-Type, Authorization',
       allowedHeaders:
         'Content-Type,Authorization,x-apollo-operation-name,apollo-require-preflight',
     }),

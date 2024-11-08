@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
-// import { join } from 'path';
 import { User, UserSchema } from './models/user.model';
 import { CounterResolver } from './resolvers/counter.resolver';
 import { UserService } from './services/user.service';
@@ -13,7 +12,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppService } from './services/app.service';
 import { AppController } from './app.controller';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
-// import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
@@ -28,7 +26,6 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
       sortSchema: true,
       playground: process.env.NODE_ENV !== 'production',
       introspection: true,
-      csrfPrevention: false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
     }),
 

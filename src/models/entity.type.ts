@@ -11,6 +11,6 @@ export class BaseEntity {
     default: () => v4(),
     alias: 'id',
   })
-  @Field()
-  _id: string;
+  @Field({ nullable: true })
+  _id?: string;
 }
